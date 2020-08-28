@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css"
+    />
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container text-right">
+      <div class="row justify-content-center pt-5">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="num">كم صوت بدك يا كبير؟</label>
+            <input id="num" type="text" size="3" class="form-control" />
+            <button id="hat" class="btn btn-primary mt-2">هات ي حج</button>
+          </div>
+          <div id="numbers"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script>
+      $("#hat").on("click", function () {
+        if (!isNaN($("#num").val())) {
+          var counter = 0;
+          if (counter == 0) {
+            $(this).text("هات كمان");
+          }
+          counter++;
+          hat();
+          if (counter > 3) {
+            showAlert("بكفي يزم");
+          }
+        } else {
+          showAlert("إدخل رقم بين 0 و 200");
+        }
+      });
+      function hat() {
+        var num = $("#num").val();
+        if (num > 0 && num <= 200) {
+          $("#numbers").children().remove();
+          for (let i = 0; i < num; i++) {
+            $("#numbers").append(
+              "<div>" + getRndInteger(6213654723, 9979999999) + "</div>"
+            );
+          }
+        } else {
+          let title = "";
+          if (num > 200) {
+            title = "كثير هيك ^_^";
+          }
+          showAlert("إدخل رقم بين 0 و 200", title);
+        }
+      }
+      function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+      }
+      $("#num").on("keypress", function (e) {
+        if (event.which != 8 && isNaN(String.fromCharCode(event.which))) {
+          event.preventDefault();
+          showAlert("يرجى إدخال إرقام فقط");
+        }
+      });
+      function showAlert(message, title = "") {
+        $.alert({
+          title: title,
+          content: message + " ^_^",
+          buttons: {
+            طيب: function () {},
+          },
+        });
+      }
+    </script>
+  </body>
+</html>
