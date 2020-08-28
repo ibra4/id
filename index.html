@@ -1,10 +1,10 @@
 <style>
   img {
-    width: 100%
+    width: 100%;
   }
   input {
     height: 40px !important;
-    border-radius: 20px !important
+    border-radius: 20px !important;
   }
 </style>
 <!DOCTYPE html>
@@ -18,10 +18,7 @@
     />
 
     <meta property="og:title" content="حل عني ^_^" />
-    <meta
-      property="og:description"
-      content="حل عني دوت كوم ^_^."
-    />
+    <meta property="og:description" content="حل عني دوت كوم ^_^." />
     <meta
       property="og:image"
       content="https://2.bp.blogspot.com/-sVw6BhFopVM/ULs3Zx27O6I/AAAAAAAAANI/fGptEaOpKSA/s640/527843_210354705752437_1710947845_n.jpg"
@@ -40,7 +37,10 @@
     <div class="container text-right pt-5">
       <div class="row justify-content-center pt-5">
         <div class="col-md-6">
-          <img src="https://2.bp.blogspot.com/-sVw6BhFopVM/ULs3Zx27O6I/AAAAAAAAANI/fGptEaOpKSA/s640/527843_210354705752437_1710947845_n.jpg" alt="">
+          <img
+            src="https://2.bp.blogspot.com/-sVw6BhFopVM/ULs3Zx27O6I/AAAAAAAAANI/fGptEaOpKSA/s640/527843_210354705752437_1710947845_n.jpg"
+            alt=""
+          />
           <div class="form-group pt-4">
             <label for="num">كم هوية بدك يا كبير؟</label>
             <input id="num" type="text" size="3" class="form-control" />
@@ -55,7 +55,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script>
       $("#hat").on("click", function () {
-        if (!isNaN($("#num").val())) {
+        var num = toEnglishDigits($("#num").val());
+        console.log(num);
+        if (!isNaN(num)) {
           var counter = 0;
           if (counter == 0) {
             $(this).text("هات كمان");
@@ -70,7 +72,7 @@
         }
       });
       function hat() {
-        var num = $("#num").val();
+        var num = toEnglishDigits($("#num").val());
         if (num > 0 && num <= 200) {
           $("#numbers").children().remove();
           for (let i = 0; i < num; i++) {
@@ -103,6 +105,20 @@
             طيب: function () {},
           },
         });
+      }
+      function toEnglishDigits(str) {
+        // convert persian digits [۰۱۲۳۴۵۶۷۸۹]
+        var e = "۰".charCodeAt(0);
+        str = str.replace(/[۰-۹]/g, function (t) {
+          return t.charCodeAt(0) - e;
+        });
+
+        // convert arabic indic digits [٠١٢٣٤٥٦٧٨٩]
+        e = "٠".charCodeAt(0);
+        str = str.replace(/[٠-٩]/g, function (t) {
+          return t.charCodeAt(0) - e;
+        });
+        return str;
       }
     </script>
   </body>
